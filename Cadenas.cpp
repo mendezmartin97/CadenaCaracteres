@@ -503,7 +503,7 @@ int collFind(Coll c, K k, int compare(T,K),T stringToT(string))
    return -1;
 }
 template <typename T>
-void collSort(Coll &c,T t, int compare(T,T),T stringToT(string),string tToString(T))
+void collSort(Coll &c,int compare(T,T),T stringToT(string),string tToString(T))
 {
    /* Descripcion: "Ordena la coleccion c segun el criterio
     * de comparacion que establece la funcion compare"
@@ -511,10 +511,10 @@ void collSort(Coll &c,T t, int compare(T,T),T stringToT(string),string tToString
     * de lo que debia hacer esta funcion
     * pero yo hice que ordene siempre de menor a mayor
     * comparando con la funcion compare que me envien.
-    *
     * */
    string s="";
-   T aux;
+   T t1;
+   T t2;
    int cSize=collSize(c);
    int cantidadCambios=0;
    bool ordenado=false;
@@ -522,19 +522,17 @@ void collSort(Coll &c,T t, int compare(T,T),T stringToT(string),string tToString
    {
       for(int i=0;i<cSize-1;i++)
       {
-         if(compare(collGetAt(c,i,stringToT),collGetAt(c,i+1,stringToT))>0)
+         t1=collGetAt(c,i,stringToT);
+         t2=collGetAt(c,i+1,stringToT);
+         if(compare(t1,t2)>0)
          {
-            t=collGetAt(c,i+1,stringToT);
-            aux=collGetAt(c,i,stringToT);
-            collSetAt(c,t,i,tToString);
-            collSetAt(c,aux,i+1,tToString);
+            collSetAt(c,t2,i,tToString);
+            collSetAt(c,t1,i+1,tToString);
             cantidadCambios++;
          }
       }
       if(cantidadCambios==0)
-      {
          ordenado=true;
-      }
       cantidadCambios=0;
    }
 }
